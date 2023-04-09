@@ -20,7 +20,7 @@ const routes = [
     component: Main,
     children: [
       //子路由
-      { path: '/home', component: Home },
+      { path: 'home', component: Home },
       { path: 'user', component: User }
     ]
   },
