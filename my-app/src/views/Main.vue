@@ -7,8 +7,8 @@
         <el-main>
           <!-- 子路由出口 -->
           <!-- 子路由匹配到的组件将渲染在这里 -->
-          <router-view></router-view
-        ></el-main>
+          <router-view></router-view>
+        </el-main>
       </el-container>
     </el-container>
   </div>
