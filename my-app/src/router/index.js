@@ -18,10 +18,13 @@ const routes = [
   {
     path: '/',
     component: Main,
+    redirect:'/home',
     children: [
       //子路由
-      { path: 'home', component: Home },
-      { path: 'user', component: User }
+      { path: 'home', component: Home },//首页
+      { path: 'user', component: User },//用户管理
+      { path: 'role', component: () => import("@/views/Role.vue") },//角色管理
+      { path: 'menu', component: () => import("@/views/Menu.vue") },//菜单管理管理
     ]
   },
 

@@ -15,6 +15,7 @@
         v-for="item in noChildren"
         :key="item.name"
         :index="item.name"
+        @click="clickMenu(item)"
       >
         <i :class="`el-icon-${item.icon}`"></i>
         <span slot="title">{{ item.label }}</span>
@@ -32,7 +33,7 @@
           v-for="subItem in item.children"
           :key="subItem.path"
         >
-          <el-menu-item :index="subItem.path">{{ subItem.label }}</el-menu-item>
+          <el-menu-item :index="subItem.path" @click="clickMenu(subItem)">{{ subItem.label }}</el-menu-item>
         </el-menu-item-group>
       </el-submenu>
     </el-menu>
@@ -69,34 +70,27 @@ export default {
           url: "Home/Home",
         },
         {
-          path: "/mall",
-          name: "mall",
-          label: "商品管理",
-          icon: "video-play",
-          url: "MallManage/MallManage",
-        },
-        {
-          path: "/user",
-          name: "user",
-          label: "用户管理",
-          icon: "user",
-          url: "UserManage/UserManage",
-        },
-        {
-          label: "其他",
+          label: "权限管理",
           icon: "location",
           children: [
             {
-              path: "/page1",
-              name: "page1",
-              label: "页面1",
+              path: "/user",
+              name: "user",
+              label: "用户管理",
               icon: "setting",
               url: "Other/PageOne",
             },
             {
-              path: "/page2",
-              name: "page2",
-              label: "页面2",
+              path: "/role",
+              name: "role",
+              label: "角色管理",
+              icon: "setting",
+              url: "Other/PageTwo",
+            },
+            {
+              path: "/menu",
+              name: "menu",
+              label: "菜单管理",
               icon: "setting",
               url: "Other/PageTwo",
             },
@@ -112,6 +106,11 @@ export default {
     handleClose(key, keyPath) {
       console.log(key, keyPath);
     },
+    clickMenu(item){
+      this.$router.push(item.path)
+      console.log(item)
+    },
+
   },
   computed: {
     //没有子菜单
