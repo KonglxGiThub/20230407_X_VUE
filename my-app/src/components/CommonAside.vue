@@ -14,7 +14,7 @@
       <el-menu-item
         v-for="item in noChildren"
         :key="item.name"
-        :index="item.name"
+        :index="item.path"
         @click="clickMenu(item)"
       >
         <i :class="`el-icon-${item.icon}`"></i>
@@ -33,7 +33,9 @@
           v-for="subItem in item.children"
           :key="subItem.path"
         >
-          <el-menu-item :index="subItem.path" @click="clickMenu(subItem)">{{ subItem.label }}</el-menu-item>
+          <el-menu-item :index="subItem.path" @click="clickMenu(subItem)">{{
+            subItem.label
+          }}</el-menu-item>
         </el-menu-item-group>
       </el-submenu>
     </el-menu>
@@ -71,6 +73,7 @@ export default {
         },
         {
           label: "权限管理",
+          name: "system",
           icon: "location",
           children: [
             {
@@ -106,11 +109,14 @@ export default {
     handleClose(key, keyPath) {
       console.log(key, keyPath);
     },
-    clickMenu(item){
-      this.$router.push(item.path)
-      console.log(item)
-    },
+    clickMenu(item) {
+      //当页面的路由和跳转的路由不一致才允许跳转
+       //this.$route.path 上一个路径，item.path下一个路径
+      if (this.$route.path !== item.path && !(this.$route.path ==='/home' && (item.path ==='/'))) {
+        this.$router.push(item.path);
+      }
 
+    },
   },
   computed: {
     //没有子菜单

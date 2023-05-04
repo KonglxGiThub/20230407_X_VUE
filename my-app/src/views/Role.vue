@@ -1,5 +1,5 @@
 <template>
-    <h1>Role</h1> 
+    <div><h1>Role</h1> </div>
  </template>
  <script>
  export default {
