@@ -1,9 +1,9 @@
 <template>
   <div>
     <el-container>
-      <el-aside width="auto"><CommonAside></CommonAside></el-aside>
+      <el-aside width="auto"><common-aside/></el-aside>
       <el-container>
-        <el-header>Header</el-header>
+        <el-header><common-header /></el-header>
         <el-main>
           main
           <!-- 子路由出口 -->
@@ -15,15 +15,21 @@
   </div>
 </template>
  <script>
- import CommonAside from '@/components/CommonAside.vue';
+import CommonAside from "@/components/CommonAside.vue";
+import CommonHeader from "@/components/CommonHeader.vue";
 export default {
-  name:"Main",
-  components:{
-    CommonAside
+  name: "Main",
+  components: {
+    CommonAside,
+    CommonHeader,
   },
   data() {
     return {};
   },
 };
 </script>
- 
+ <style scoped>
+.el-header {
+  padding: 0;
+}
+</style>

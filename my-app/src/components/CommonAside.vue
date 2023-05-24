@@ -48,6 +48,7 @@
 }
 .el-menu {
   //height: calc(100vh - 0px);
+  border-right:0px;
   height: 100vh;
   h3 {
     color: #fff;
