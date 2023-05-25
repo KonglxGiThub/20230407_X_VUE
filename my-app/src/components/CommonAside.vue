@@ -10,7 +10,7 @@
       text-color="#fff"
       active-text-color="#ffd04b"
     >
-      <h3>通用后台管理系统</h3>
+      <h3>{{ isCollapse ? "后台" : "通用后台管理系统" }}</h3>
       <el-menu-item
         v-for="item in noChildren"
         :key="item.name"
@@ -48,7 +48,7 @@
 }
 .el-menu {
   //height: calc(100vh - 0px);
-  border-right:0px;
+  border-right: 0px;
   height: 100vh;
   h3 {
     color: #fff;
@@ -63,7 +63,7 @@
 export default {
   data() {
     return {
-      isCollapse: false,
+      //isCollapse: false,
       menuData: [
         {
           path: "/",
@@ -112,11 +112,13 @@ export default {
     },
     clickMenu(item) {
       //当页面的路由和跳转的路由不一致才允许跳转
-       //this.$route.path 上一个路径，item.path下一个路径
-      if (this.$route.path !== item.path && !(this.$route.path ==='/home' && (item.path ==='/'))) {
+      //this.$route.path 上一个路径，item.path下一个路径
+      if (
+        this.$route.path !== item.path &&
+        !(this.$route.path === "/home" && item.path === "/")
+      ) {
         this.$router.push(item.path);
       }
-
     },
   },
   computed: {
@@ -127,6 +129,10 @@ export default {
     //有子菜单
     hasChildren() {
       return this.menuData.filter((item) => item.children);
+    },
+    //vuex取得菜单展开收起的值，但是data里不能重复定义
+    isCollapse() {
+      return this.$store.state.menu.isCollapse;
     },
   },
 };
