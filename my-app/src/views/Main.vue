@@ -5,7 +5,7 @@
       <el-container>
         <el-header><common-header /></el-header>
         <el-main>
-          main
+          
           <!-- 子路由出口 -->
           <!-- 子路由匹配到的组件将渲染在这里 -->
           <router-view></router-view>

@@ -17,7 +17,7 @@ export default {
 <style lang="less">
 //清除默认样式
 html,
-body,h3 {
+body,h3,p{
   margin: 0;
   padding: 0;
 }
