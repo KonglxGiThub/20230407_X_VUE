@@ -23,7 +23,6 @@
                 :prop="key"
                 :label="val"
                 :key="key"
-               
               />
 
               <!-- <el-table-column prop="date" label="日期" width="180">
@@ -36,9 +35,25 @@
           >
         </div></el-col
       >
-      <el-col :span="16"
-        ><div class="grid-content bg-purple-light"></div
-      ></el-col>
+      <el-col :span="16">
+        <div class="home-right-info">
+          <el-card
+            v-for="item in countData"
+            :key="item.name"
+            :body-style="{ display: 'flex' }"
+          >
+            <i
+              class="icon"
+              :class="`el-icon-${item.icon}`"
+              :style="{ background: item.color }"
+            ></i>
+            <div class="detail-info">
+              <p class="price">{{ item.value }}</p>
+              <p class="desc">{{ item.name }}</p>
+            </div>
+          </el-card>
+        </div>
+      </el-col>
     </el-row>
   </div>
 </template>
@@ -47,6 +62,44 @@ export default {
   name: "Home",
   data() {
     return {
+      countData: [
+        {
+          name: "样式1",
+          value: "样式1",
+          icon: "success",
+          color: "#2ec7c9",
+        },
+        {
+          name: "样式2",
+          value: "样式2",
+          icon: "star-on",
+          color: "#ffb980",
+        },
+        {
+          name: "样式3",
+          value: "样式3",
+          icon: "s-goods",
+          color: "#5ab1ef",
+        },
+        {
+          name: "样式4",
+          value: "样式4",
+          icon: "user",
+          color: "#2ec7c9",
+        },
+        {
+          name: "样式5",
+          value: "样式5",
+          icon: "s-home",
+          color: "#ffb980",
+        },
+        {
+          name: "样式6",
+          value: "样式6",
+          icon: "folder",
+          color: "#5ab1ef",
+        },
+      ],
       tableLabel: {
         name: "姓名",
         date: "日期",
@@ -111,6 +164,42 @@ export default {
         color: #666666;
         margin-left: 60px;
       }
+    }
+  }
+  .home-right-info {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    .icon {
+      width: 80px;
+      height: 80px;
+      font-size: 30px;
+      text-align: center;
+      line-height: 80px;
+      color: #fff;
+    }
+    .detail-info {
+      margin-left: 15px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+
+      .price {
+        font-size: 30px;
+        margin-bottom: 10px;
+        line-height: 30px;
+        height: 30px;
+        text-align: left;
+      }
+      .desc {
+        font-size: 14px;
+        color: #999;
+        text-align: left;
+      }
+    }
+    .el-card {
+      width: 32%;
+      margin-bottom: 20px;
     }
   }
 }
