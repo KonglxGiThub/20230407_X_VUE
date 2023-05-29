@@ -5,7 +5,6 @@
       <el-container>
         <el-header><common-header /></el-header>
         <el-main>
-          
           <!-- 子路由出口 -->
           <!-- 子路由匹配到的组件将渲染在这里 -->
           <router-view></router-view>
@@ -31,5 +30,8 @@ export default {
  <style scoped>
 .el-header {
   padding: 0;
+}
+.el-main {
+  height: calc(100vh - 70px);
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div class="main">
     <el-row>
-      <el-col :span="8"
+      <el-col :span="8" style="padding-right: 10px"
         ><div class="grid-content bg-purple">
           <el-card class="box-card">
             <div class="user-content">
@@ -35,7 +35,7 @@
           >
         </div></el-col
       >
-      <el-col :span="16">
+      <el-col :span="16" style="padding-left: 10px">
         <div class="home-right-info">
           <el-card
             v-for="item in countData"
@@ -52,6 +52,13 @@
               <p class="desc">{{ item.name }}</p>
             </div>
           </el-card>
+        </div>
+        <el-card style="height: 280px">
+          <!-- 折线图 -->
+        </el-card>
+        <div class="home-right-bottom">
+          <el-card></el-card>
+          <el-card></el-card>
         </div>
       </el-col>
     </el-row>
@@ -132,8 +139,7 @@ export default {
   },
   mounted() {
     getData().then((res) => {
-      debugger
-      this.tableData = res.data.data.tableData
+      this.tableData = res.data.data.tableData;
       console.log(res);
     });
   },
@@ -208,6 +214,15 @@ export default {
     .el-card {
       width: 32%;
       margin-bottom: 20px;
+    }
+  }
+  .home-right-bottom {
+    display: flex;
+    justify-content: space-between;
+    .el-card {
+      width: 48%;
+      height: 260px;
+      margin-top: 20px;
     }
   }
 }
