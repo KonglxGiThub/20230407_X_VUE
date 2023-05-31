@@ -55,10 +55,18 @@
         </div>
         <el-card style="height: 280px">
           <!-- 折线图 -->
+          <div ref="echartsLine" style="height: 280px"></div>
         </el-card>
+
         <div class="home-right-bottom">
-          <el-card></el-card>
-          <el-card></el-card>
+          <el-card style="height: 260px">
+            <!-- 柱状图 -->
+            <div ref="echartsBar1" style="height: 260px"></div>
+          </el-card>
+          <el-card style="height: 260px">
+            <!-- 柱状图 -->
+            <div ref="echartsPie" style="height: 240px"></div>
+          </el-card>
         </div>
       </el-col>
     </el-row>
@@ -66,6 +74,7 @@
 </template>
 <script>
 import { getData } from "@/api";
+import * as echarts from "echarts";
 export default {
   name: "Home",
   data() {
@@ -140,7 +149,128 @@ export default {
   mounted() {
     getData().then((res) => {
       this.tableData = res.data.data.tableData;
-      console.log(res);
+      //折线图start
+      // 1、基于准备好的dom，初始化echarts实例
+      const myChartLine = echarts.init(this.$refs.echartsLine);
+      //2、 指定图表的配置项和数据
+      var optionLine = {};
+      //3、获取数据 xAxis
+      const { orderData, userData, videoData } = res.data.data;
+      const xAxisLine = Object.keys(orderData.data[0]);
+      const xAxisData = { data: xAxisLine };
+      optionLine.xAxis = xAxisData;
+      optionLine.yAxis = {};
+      optionLine.legend = xAxisData;
+
+      optionLine.series = [];
+
+      xAxisLine.forEach((key) => {
+        optionLine.series.push({
+          name: key,
+          data: orderData.data.map((item) => item[key]),
+          type: "line",
+        });
+      });
+      console.log(optionLine);
+      //4、使用刚指定的配置项和数据显示图表。
+      myChartLine.setOption(optionLine);
+      //折线图end
+
+      //柱状图1start
+      // 1、基于准备好的dom，初始化echarts实例
+      const myChartBar1 = echarts.init(this.$refs.echartsBar1);
+      //2、 指定图表的配置项和数据
+      var optionBar1 = {
+        legend: {
+          // 图例文字颜色
+          textStyle: {
+            color: "#333",
+          },
+        },
+        grid: {
+          left: "20%",
+        },
+        // 提示框
+        tooltip: {
+          trigger: "axis",
+        },
+        xAxis: {
+          type: "category", // 类目轴
+          data: [],
+          axisLine: {
+            lineStyle: {
+              color: "#17b3a3",
+            },
+          },
+          axisLabel: {
+            interval: 0,
+            color: "#333",
+          },
+        },
+        yAxis: [
+          {
+            type: "value",
+            axisLine: {
+              lineStyle: {
+                color: "#17b3a3",
+              },
+            },
+          },
+        ],
+        color: ["#2ec7c9", "#b6a2de"],
+        series: [
+          {
+            name: "新增用户",
+            data: userData.map((item) => {
+              return item.new;
+            }),
+            type: "bar",
+          },
+          {
+            name: "活跃用户",
+            data: userData.map((item) => {
+              return item.active;
+            }),
+
+            type: "bar",
+          },
+          // {
+          //   name: "新增用户",
+          //   data: userData.map((item) => item.new),
+          //   type: "bar",
+          // },
+          // {
+          //   name: "活跃用户",
+          //   data: userData.map((item) => item.active),
+          //   type: "bar",
+          // },
+        ],
+      };
+      //4、使用刚指定的配置项和数据显示图表。
+      myChartBar1.setOption(optionBar1);
+      //柱状图1end
+
+      //饼状图1start
+      // 1、基于准备好的dom，初始化echarts实例
+      const myChartPie = echarts.init(this.$refs.echartsPie);
+      //2、 指定图表的配置项和数据
+      //饼状图1end
+      const optionPie = {
+        tooltip: {
+          trigger: "item",
+        },
+        color: [
+          "#0f78f4",
+          "#dd536b",
+          "#9462e5",
+          "#a6a6a6",
+          "#e1bb22",
+          "#39c362",
+          "#3ed1cf",
+        ],
+        series: [{ data: videoData, type: "pie" }],
+      };
+      myChartPie.setOption(optionPie);
     });
   },
 };
