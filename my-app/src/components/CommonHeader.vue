@@ -7,7 +7,14 @@
         size="mini"
       ></el-button>
       <!-- 面包屑 -->
-      <span class="text">首页</span>
+      <el-breadcrumb separator="/">
+        <el-breadcrumb-item
+          v-for="item in breadcrumbList"
+          :key="item.path"
+          :to="{ path: item.path }"
+          >{{ item.label }}</el-breadcrumb-item
+        >
+      </el-breadcrumb>
     </div>
     <div class="r-content">
       <el-dropdown>
@@ -22,6 +29,7 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
   data() {
     return {};
@@ -30,6 +38,11 @@ export default {
     handleIsCollapse() {
       this.$store.commit("handleCollapse");
     },
+  },
+  computed: {
+    ...mapState({
+      breadcrumbList: (state) => state.menu.breadcrumbList,
+    }),
   },
 };
 </script>
@@ -51,6 +64,28 @@ export default {
       width: 40px;
       height: 40px;
       border-radius: 50%;
+    }
+  }
+  .l-content {
+    display: flex;
+    align-items: center;
+    ///deep/样式穿刺
+    /deep/.el-breadcrumb__item {
+      .el-breadcrumb__inner {
+        font-weight: normal;
+        //设置面包屑字体为灰色，最后一个除外
+        //<span role="link" class="el-breadcrumb__inner is-link">菜单管理</span>
+        &.is-link {
+          color: #666;
+        }
+      }
+      //设置最后一个面包屑字体为白色
+      //<span role="link" class="el-breadcrumb__inner is-link">用户管理</span>
+      &:last-child {
+        .el-breadcrumb__inner {
+          color: #fff;
+        }
+      }
     }
   }
 }

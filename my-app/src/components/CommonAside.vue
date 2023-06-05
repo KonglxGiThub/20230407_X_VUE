@@ -119,6 +119,7 @@ export default {
       ) {
         this.$router.push(item.path);
       }
+      this.$store.commit("breadcrumbChange", item);
     },
   },
   computed: {
