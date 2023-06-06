@@ -13,6 +13,11 @@ export default {
         ]//面包屑的数据
     },
     mutations: {
+        //删除指定的tag
+        closeTag(state, item) {
+            const index = state.breadcrumbList.findIndex(val => { return val.name === item.name })
+            state.breadcrumbList.splice(index, 1)
+        },
         //用于控制菜单的展开收起
         handleCollapse(state) {
             state.isCollapse = !state.isCollapse

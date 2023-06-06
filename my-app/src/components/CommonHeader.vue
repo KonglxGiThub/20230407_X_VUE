@@ -5,6 +5,7 @@
         icon="el-icon-menu"
         @click="handleIsCollapse"
         size="mini"
+        style="margin-right: 20px"
       ></el-button>
       <!-- 面包屑 -->
       <el-breadcrumb separator="/">
