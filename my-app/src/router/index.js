@@ -18,13 +18,13 @@ const routes = [
   {
     path: '/',
     component: Main,
-    redirect:'/home',
+    redirect: '/home',
     children: [
       //子路由
-      { path: 'home', component: Home },//首页
-      { path: 'user', component: User },//用户管理
-      { path: 'role', component: () => import("@/views/Role.vue") },//角色管理
-      { path: 'menu', component: () => import("@/views/Menu.vue") },//菜单管理管理
+      { path: 'home', name: "home", component: Home },//首页
+      { path: 'user', name: "user", component: User },//用户管理
+      { path: 'role', name: "role", component: () => import("@/views/Role.vue") },//角色管理
+      { path: 'menu', name: "menu", component: () => import("@/views/Menu.vue") },//菜单管理管理
     ]
   },
 
@@ -42,5 +42,20 @@ const router = new VueRouter({
 // const app = new Vue({
 //   router
 // }).$mount('#app')
+// 获取原型对象push函数
+const originalPush = VueRouter.prototype.push
+
+// 获取原型对象replace函数
+const originalReplace = VueRouter.prototype.replace
+
+// 修改原型对象中的push函数
+VueRouter.prototype.push = function push(location) {
+  return originalPush.call(this, location).catch(err => err)
+}
+
+// 修改原型对象中的replace函数
+VueRouter.prototype.replace = function replace(location) {
+  return originalReplace.call(this, location).catch(err => err)
+}
 
 export default router
