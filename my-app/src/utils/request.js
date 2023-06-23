@@ -1,12 +1,12 @@
 import axios from "axios";
 const http = axios.create({
-    baseURL: '/api',//通用请求的地址
+    baseURL: 'http://localhost:9090/',//通用请求的地址 '/api',//
     timeout: 10000,//超时时间,10000毫秒，10秒
 
 });
 // 添加请求拦截器
 http.interceptors.request.use(function (config) {
-    // 在发送请求之前做些什么
+    // 在发送请求之前做些什么  
     return config;
 }, function (error) {
     // 对请求错误做些什么

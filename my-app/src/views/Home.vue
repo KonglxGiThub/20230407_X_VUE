@@ -73,7 +73,7 @@
   </div>
 </template>
 <script>
-import { getData } from "@/api";
+import { getData } from "@/api/index.js";
 import * as echarts from "echarts";
 export default {
   name: "Home",

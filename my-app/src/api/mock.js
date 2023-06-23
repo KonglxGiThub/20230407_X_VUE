@@ -6,4 +6,4 @@ import homeApi from './mockServerData/home';
 //     console.log('攔截到了')
 // })
 
-Mock.mock('/api/home/getData', homeApi.getResultData)
+Mock.mock('http://localhost:9090/home/getData', homeApi.getResultData)
