@@ -221,7 +221,7 @@ export default {
     },
     handleEdit(val) {
       this.model = Object.assign({}, val);
-      debugger;
+ 
       this.dialogVisible = true;
     },
     handeleAdd() {

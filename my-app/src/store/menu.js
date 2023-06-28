@@ -1,5 +1,7 @@
 export default {
     state: {
+        menuList: [],//动态路由
+        authoritysList: [],//权限
         isCollapse: false, //用于控制菜单的展开收起
         breadcrumbList: [
             //默认的数据
@@ -13,6 +15,14 @@ export default {
         ]//面包屑的数据
     },
     mutations: {
+        setMenuList(state, val) {
+            state.menuList = val
+
+        },
+        setAuthoritysList(state, val) {
+
+            state.authoritysList = val
+        },
         //删除指定的tag
         closeTag(state, item) {
             const index = state.breadcrumbList.findIndex(val => { return val.name === item.name })

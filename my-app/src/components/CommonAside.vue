@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-menu
+    <!-- <el-menu
       default-active="1-4-1"
       class="el-menu-vertical-demo"
       @open="handleOpen"
@@ -38,6 +38,47 @@
           }}</el-menu-item>
         </el-menu-item-group>
       </el-submenu>
+    </el-menu> -->
+    <el-menu
+      default-active="1-4-1"
+      class="el-menu-vertical-demo"
+      @open="handleOpen"
+      @close="handleClose"
+      :collapse="isCollapse"
+      background-color="#545c64"
+      text-color="#fff"
+      active-text-color="#ffd04b"
+    >
+      <router-link to="/home">
+        <el-menu-item
+          index="Index"
+          @click="clickMenu({ name: 'home', title: '首页', path: '/' })"
+        >
+          <template slot="title">
+            <i class="el-icon-s-home"></i>
+            <span slot="title">首页</span>
+          </template>
+        </el-menu-item>
+      </router-link>
+      <el-submenu :index="menu.label" v-for="menu in menuData" :key="menu.name">
+        <template slot="title">
+          <i :class="`el-icon-${menu.icon}`"></i>
+          <span>{{ menu.label }}</span>
+        </template>
+
+        <router-link
+          :to="item.path"
+          v-for="item in menu.children"
+          :key="item.name"
+        >
+          <el-menu-item :index="item.name" @click="clickMenu(item)">
+            <template slot="title">
+              <i :class="`el-icon-${item.icon}`"></i>
+              <span slot="title">{{ item.label }}</span>
+            </template>
+          </el-menu-item>
+        </router-link>
+      </el-submenu>
     </el-menu>
   </div>
 </template>
@@ -64,14 +105,16 @@ export default {
   data() {
     return {
       //isCollapse: false,
-      menuData: [
-        {
-          path: "/",
-          name: "home",
-          label: "首页",
-          icon: "s-home",
-          url: "Home/Home",
-        },
+
+      menuData11: [
+        // {
+        //   path: "/",
+        //   name: "home",
+        //   label: "首页",
+        //   icon: "s-home",
+        //   url: "Home/Home",
+        // },
+ 
         {
           label: "权限管理",
           name: "system",
@@ -103,6 +146,9 @@ export default {
       ],
     };
   },
+  created() {
+    this.menuData;
+  },
   methods: {
     handleOpen(key, keyPath) {
       console.log(key, keyPath);
@@ -123,17 +169,25 @@ export default {
     },
   },
   computed: {
-    //没有子菜单
-    noChildren() {
-      return this.menuData.filter((item) => !item.children);
-    },
-    //有子菜单
-    hasChildren() {
-      return this.menuData.filter((item) => item.children);
-    },
+    // //没有子菜单
+    // noChildren() {
+    //   return this.menuData.filter((item) => !item.children);
+    // },
+    // //有子菜单
+    // hasChildren() {
+    //   return this.menuData.filter((item) => item.children);
+    // },
     //vuex取得菜单展开收起的值，但是data里不能重复定义
     isCollapse() {
       return this.$store.state.menu.isCollapse;
+    },
+    // menuData11: {
+    //   get() {
+    //     return this.$store.state.menu.menuList;
+    //   },
+    // },
+    menuData() {
+      return this.$store.state.menu.menuList;
     },
   },
 };
