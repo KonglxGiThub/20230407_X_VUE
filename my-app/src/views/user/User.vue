@@ -28,7 +28,8 @@
           <el-date-picker
             v-model="model.createTime"
             type="date"
-            placeholder="选择日期" format="yyyy-MM-dd HH:mm:ss"
+            placeholder="选择日期"
+            format="yyyy-MM-dd HH:mm:ss"
           >
           </el-date-picker>
         </el-form-item>
@@ -124,10 +125,10 @@ export default {
         index: "",
         nickName: "昵称",
 
-        userName: "姓名",
-        phone: "电话",
-        address: "地址",
-        createTime: "创建日期",
+        username: "姓名",
+        // phone: "电话",
+        // address: "地址",
+        gmtCreate: "创建日期",
       },
       tableData: [
         //   {
@@ -183,11 +184,9 @@ export default {
   methods: {
     getData() {
       http
-        .get(
-          "/myserver/user/page?pageNum=" +
-            this.pageNum +
-            "&pageSize=" +
-            this.pageSize
+        .post(
+          "/user/page?pageNum=" + this.pageNum + "&pageSize=" + this.pageSize,
+          { user: {} }
         )
         .then((res) => {
           console.log(res);
@@ -222,7 +221,7 @@ export default {
     },
     handleEdit(val) {
       this.model = Object.assign({}, val);
-debugger
+      debugger;
       this.dialogVisible = true;
     },
     handeleAdd() {
